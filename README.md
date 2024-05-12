@@ -34,7 +34,7 @@ During the `Classic Webcam Wizard` leave the defaults. we WILL change this at a 
 Open `OctoPrint Settings` once you have completed the install and navigate to `Plugin Manager`
 
 #### Step 3A:
-Install and setup this plugin: [GitHub - jneilliii/OctoPrint-BambuPrinter 82](https://github.com/jneilliii/OctoPrint-BambuPrinter)
+Install and setup this plugin: [GitHub - jneilliii/OctoPrint-BambuPrinter](https://github.com/jneilliii/OctoPrint-BambuPrinter)
 
 1. Using the plugin manager click the **GET MORE** button.
 2. Enter your password you set in the wizard.
