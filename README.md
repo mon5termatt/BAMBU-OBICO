@@ -13,7 +13,7 @@ A half automated setup of Obico / Octoprint / BambuP1Streamer
 ##### Script steps:
 1. **Add Docker Installation Dependencies:** Configures the system to install Docker.
 2. **Install Docker:** Installs Docker and Docker Compose on the system.
-3. **Clone Repository:** Clones a specified GitHub repository.
+3. **Clone Repository:** Clones the p1streamer repository.
 4. **Compile Source Code:** Compiles source code using a Docker container.
 5. **Build Docker Image:** Builds a Docker image for the project.
 
