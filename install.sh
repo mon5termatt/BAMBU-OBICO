@@ -5,12 +5,6 @@
 # Store current directory
 current_dir=$(pwd)
 
-# Check if running with sudo
-if [[ $EUID -ne 0 ]]; then
-   echo -e "\e[31mThis script must be run with sudo\e[0m" 
-   exit 1
-fi
-
 # Step: 1 - Add Docker's official GPG key and repository to Apt sources
 echo -e "\e[32mStep: 1 - Adding Docker's official GPG key and repository to Apt sources\e[0m"
 
@@ -34,7 +28,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 
 # Verify installation
 echo -e "\e[32mDocker version:\e[0m"
-docker --version
+sudo docker --version
 
 # Step: 3 - Clone the repository and navigate into the directory
 echo -e "\e[32mStep: 3 - Cloning the repository and navigating into the directory\e[0m"
@@ -54,11 +48,11 @@ chmod a+x go2rtc_linux_amd64
 # Step: 6
 echo -e "\e[32mStep: 6\e[0m"
 echo -e "\e[32mCurrent directory is: $(pwd)\e[0m"
-docker run --rm -v $(pwd):$(pwd) docker.io/gcc:12 gcc $(pwd)/src/BambuP1Streamer.cpp -o $(pwd)/BambuP1Streamer
+sudo docker run --rm -v $(pwd):$(pwd) docker.io/gcc:12 gcc $(pwd)/src/BambuP1Streamer.cpp -o $(pwd)/BambuP1Streamer
 
 # Step: 7
 echo -e "\e[32mStep: 7\e[0m"
-docker build -t bambu_p1_streamer .
+sudo docker build -t bambu_p1_streamer .
 
 # Step: 8
 echo -e "\e[32mStep: 8\e[0m"
@@ -93,10 +87,10 @@ read -p "Does the Docker Compose file look correct? (Y/N): " confirm
 if [[ $confirm == "Y" || $confirm == "y" ]]; then
     # Step: 10
     echo -e "\e[32mStep: 10\e[0m"
-    docker compose up -d
+    sudo docker compose up -d
     # Display Docker containers
     echo -e "\e[32mDocker containers:\e[0m"
-    docker ps
+    sudo docker ps
 else
     echo -e "\e[31mAborted. Please review and correct the Docker Compose file.\e[0m"
 fi
@@ -135,7 +129,7 @@ cat docker-compose.yaml
 read -p "Does the OctoPrint Docker Compose file look correct? (Y/N): " confirm_octoprint
 if [[ $confirm_octoprint == "Y" || $confirm_octoprint == "y" ]]; then
     # Run Docker Compose for OctoPrint
-    docker compose up -d
+    sudo docker compose up -d
     echo -e "\e[32mOctoPrint Docker containers started successfully.\e[0m"
 else
     echo -e "\e[31mAborted. Please review and correct the OctoPrint Docker Compose file.\e[0m"
