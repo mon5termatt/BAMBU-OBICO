@@ -27,8 +27,11 @@ A half automated setup of Obico / Octoprint / BambuP1Streamer
 # Step 2: Install and Configure Octoprint
 
 Install Octoprint and go through the setup wizard.
+During the `Classic Webcam Wizard` leave the defaults. we WILL change this at a later time.
 
 # Step 3: Install the plugins
+
+Open `OctoPrint Settings` once you have completed the install and navigate to `Plugin Manager`
 
 #### Step 3A:
 Install and setup this plugin: [GitHub - jneilliii/OctoPrint-BambuPrinter 82](https://github.com/jneilliii/OctoPrint-BambuPrinter)
@@ -52,10 +55,56 @@ Install and setup this plugin: `Obico for OctoPrint: Full Remote Access - AI Fai
 Under plugins we need a few things.
 * Bambu Printer
 * Classic Webcam
+* Obico
 
-Under Bambu Printer you need to set up a few options
+#### STEP 5A:
+
+#### Under Bambu Printer you need to set up a few options
+
+* Device Type: What printer model do you own.
+* Ip address: The IP we set during install.sh
+* Serial Number: Get this from Orcaslicer/Bambu Slicer in the `Device Tab >>> Update`
+* Access Code: Again, same as what we entered during install.sh
+
+![image](https://github.com/mon5termatt/BAMBU-OBICO/assets/43628254/9a1eac86-5e61-40cb-b47a-a39a598cb59a)
+
+#### STEP 5B:
+
+#### Under Classic Webcam we need a few more complicated things
+
+**Get your IP that you are currently on.** its the same IP as octoprint. Set thew following options.
+
+* Stream URL: http://`your IP here`:1984/api/stream.mjpeg?src=p1s
+* Stream Aspect Ratio: Leave as 16:9
+* Snapshot URL: http://`your IP here`:1984/api/frame.jpeg?src=p1s
+
+![image](https://github.com/mon5termatt/BAMBU-OBICO/assets/43628254/6e4b790d-2a74-437b-b413-4019f9dff1e4)
+*Under advanced options you can increase the timeout limit, this is useful if obico keeps throwing webcam errors*
 
 
+#### Troubleshooting No image
 
-5- Install Obico app to get notification/screenshots on your phone and be able to pause prints manually if needed (Obico does it automatically).
-6- Profit.
+* Open http://`YOUR IP`:1984
+
+You should see THIS: ![image](https://github.com/mon5termatt/BAMBU-OBICO/assets/43628254/8516e17e-5d69-4c69-bf3a-02f079d320d3)
+
+Click the `LINKS` link
+
+Find THIS:
+![image](https://github.com/mon5termatt/BAMBU-OBICO/assets/43628254/83c81ff4-67ee-4273-b111-7bad3f2aaceb)
+
+* Right Click `stream.mjpeg` and click `Copy Link Address`
+* Enter this link into the `Stream URL`
+
+* Right Click `frame.jpeg` and click `Copy Link Address`
+* Enter this link into the `Snapshot URL`
+
+#### STEP 5C:
+
+### Under Obico
+
+Run the `Setup Wizard`
+
+# Once the wizard is done you should be able to access your Bambu Printer from OBICO!
+
+# Our work here is done!
