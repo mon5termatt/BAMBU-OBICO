@@ -1,16 +1,26 @@
 #!/bin/bash
 
-# Store current directory
-current_dir=$(pwd)
-
 # Check if running with sudo
 if [[ $EUID -eq 0 ]]; then
    echo -e "\e[31mPlease run this script without sudo\e[0m" 
    exit 1
 fi
 
-# Step: 1 - Add Docker Installation Dependencies
-echo -e "\e[32mStep: 1 - Adding Docker's official GPG key and repository to Apt sources\e[0m"
+# Step: 1 - Set Printer Configuration and OctoPrint Port
+echo -e "\e[32mStep: 1 - Setting printer configuration and OctoPrint port\e[0m"
+read -p "Enter your printer IP address: " printer_ip
+read -p "Enter your printer access key: " printer_key
+read -p "Enter the port for OctoPrint (default is 80): " octoprint_port
+octoprint_port=${octoprint_port:-80}
+echo -e "\e[32mPrinter IP:\e[0m $printer_ip"
+echo -e "\e[32mPrinter Access Key:\e[0m $printer_key"
+echo -e "\e[32mOctoprint Port:\e[0m $octoprint_port"
+
+# Store current directory
+current_dir=$(pwd)
+
+# Step: 2 - Add Docker Installation Dependencies
+echo -e "\e[32mStep: 2 - Adding Docker's official GPG key and repository to Apt sources\e[0m"
 
 # Add Docker's official GPG key
 sudo apt-get update
@@ -26,26 +36,23 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 
-# Step: 2 - Install Docker
-echo -e "\e[32mStep: 2 - Installing Docker\e[0m"
+# Step: 3 - Install Docker
+echo -e "\e[32mStep: 3 - Installing Docker\e[0m"
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # Verify installation
 echo -e "\e[32mDocker version:\e[0m"
 sudo docker --version
 
-# Step: 3 - Clone the repository and navigate into the directory
-echo -e "\e[32mStep: 3 - Cloning the repository and navigating into the directory\e[0m"
+# Step: 4 - Clone the repository and navigate into the directory
+echo -e "\e[32mStep: 4 - Cloning the repository and navigating into the directory\e[0m"
 git clone https://github.com/slynn1324/BambuP1Streamer
 cd BambuP1Streamer || exit
 
-# Step: 4 - Download and Unzip Files
-echo -e "\e[32mStep: 4 - Downloading and unzipping files\e[0m"
+# Step: 5 - Downloading Additional required files
+echo -e "\e[32mStep: 5 - Downloading Additional required files\e[0m"
 wget https://public-cdn.bambulab.com/upgrade/studio/plugins/01.04.00.15/linux_01.04.00.15.zip
 unzip linux_01.04.00.15.zip
-
-# Step: 5 - Download Additional Files
-echo -e "\e[32mStep: 5 - Downloading additional files\e[0m"
 wget https://github.com/AlexxIT/go2rtc/releases/download/v1.6.2/go2rtc_linux_amd64
 chmod a+x go2rtc_linux_amd64
 
@@ -58,17 +65,10 @@ sudo docker run --rm -v $(pwd):$(pwd) docker.io/gcc:12 gcc $(pwd)/src/BambuP1Str
 echo -e "\e[32mStep: 7 - Building Docker image\e[0m"
 sudo docker build -t bambu_p1_streamer .
 
-# Step: 8 - Set Printer Configuration
-echo -e "\e[32mStep: 8 - Setting printer configuration\e[0m"
-read -p "Enter your printer IP address: " printer_ip
-read -p "Enter your printer access key: " printer_key
-
-echo -e "\e[32mPrinter IP:\e[0m $printer_ip"
-echo -e "\e[32mPrinter Access Key:\e[0m $printer_key"
-
-# Step: 9 - Create Docker Compose File
-echo -e "\e[32mStep: 9 - Creating Docker Compose file\e[0m"
+# Step: 8 - Create Docker Compose File
+echo -e "\e[32mStep: 8 - Creating Docker Compose file\e[0m"
 cat <<EOF >docker-compose.yml
+version: "3.3"
 services:
   bambu_p1_streamer:
     container_name: bambu_p1_streamer
@@ -88,8 +88,8 @@ cat docker-compose.yml
 # Prompt for confirmation
 read -p "Does the Docker Compose file look correct? (Y/N): " confirm
 if [[ $confirm == "Y" || $confirm == "y" ]]; then
-    # Step: 10 - Start Docker Containers
-    echo -e "\e[32mStep: 10 - Starting Docker containers\e[0m"
+    # Step: 9 - Start Docker Containers
+    echo -e "\e[32mStep: 9 - Starting Docker containers\e[0m"
     sudo docker compose up -d
     # Display Docker containers
     echo -e "\e[32mDocker containers:\e[0m"
@@ -103,12 +103,11 @@ cd "$current_dir" || exit
 mkdir -p octoprint
 cd octoprint || exit
 
-# Step: 11 - Create OctoPrint Docker Compose File
-echo -e "\e[32mStep: 11 - Creating OctoPrint Docker Compose file\e[0m"
-read -p "Enter the port for OctoPrint (default is 80): " octoprint_port
-octoprint_port=${octoprint_port:-80}
+# Step: 10 - Create OctoPrint Docker Compose File
+echo -e "\e[32mStep: 10 - Creating OctoPrint Docker Compose file\e[0m"
 
 cat <<EOF >docker-compose.yaml
+version: "2.4"
 services:
   octoprint:
     image: octoprint/octoprint
@@ -124,8 +123,8 @@ EOF
 
 echo -e "\e[32mOctoPrint Docker Compose file created successfully.\e[0m"
 
-# Step: 12 - Start OctoPrint Docker Containers
-echo -e "\e[32mStep: 12 - Starting OctoPrint Docker containers\e[0m"
+# Step: 11 - Start OctoPrint Docker Containers
+echo -e "\e[32mStep: 11 - Starting OctoPrint Docker containers\e[0m"
 cat docker-compose.yaml
 
 read -p "Does the OctoPrint Docker Compose file look correct? (Y/N): " confirm_octoprint
@@ -136,8 +135,8 @@ else
     echo -e "\e[31mAborted. Please review and correct the OctoPrint Docker Compose file.\e[0m"
 fi
 
-# Step: 13 - Get IP Address and Port, Prompt User for Setup
-echo -e "\e[32mStep: 13 - Getting the IP address and port of the machine\e[0m"
+# Step: 12 - Get IP Address and Port, Prompt User for Setup
+echo -e "\e[32mStep: 12 - Getting the IP address and port of the machine\e[0m"
 ip_address=$(hostname -I | cut -d' ' -f1)
 
 # Prompt user to visit OctoPrint setup
