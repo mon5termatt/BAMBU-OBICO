@@ -69,7 +69,6 @@ echo -e "\e[32mPrinter Access Key:\e[0m $printer_key"
 # Step: 9 - Create Docker Compose File
 echo -e "\e[32mStep: 9 - Creating Docker Compose file\e[0m"
 cat <<EOF >docker-compose.yml
-version: "3.3"
 services:
   bambu_p1_streamer:
     container_name: bambu_p1_streamer
@@ -110,7 +109,6 @@ read -p "Enter the port for OctoPrint (default is 80): " octoprint_port
 octoprint_port=${octoprint_port:-80}
 
 cat <<EOF >docker-compose.yaml
-version: "2.4"
 services:
   octoprint:
     image: octoprint/octoprint
