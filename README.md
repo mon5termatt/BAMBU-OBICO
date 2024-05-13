@@ -14,8 +14,9 @@ A half automated setup of Obico / Octoprint / BambuP1Streamer
 On your VM/PI/Whatever you are gonna run this on.
 
 * Login as a NON ROOT user.
-* Verify that WGET is installed. `apt install wget`
+* Verify that WGET and Git is installed. `apt install wget git`
 * Download the script. `wget https://raw.githubusercontent.com/mon5termatt/BAMBU-OBICO/main/install.sh`
+* Make it so you can run the script `chmod a+x install.sh`
 * Start the script `./install.sh`
 
 
