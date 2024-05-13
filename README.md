@@ -5,7 +5,7 @@ A half automated setup of Obico / Octoprint / BambuP1Streamer
 * this script assumes you are using a fresh install of PI OS or Debian
 * this has only been tested on a virtual install of debian 12
 
-![image](https://github.com/mon5termatt/BAMBU-OBICO/assets/43628254/c1fb1655-8a3c-4f22-9b33-ec399259fe0a)
+![image](https://github.com/mon5termatt/BAMBU-OBICO/assets/43628254/b0420d3a-e8df-4da6-a108-82263497d742)
 
 ------------------------------------------------------------------------------
 
