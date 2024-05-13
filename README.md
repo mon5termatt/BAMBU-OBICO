@@ -10,6 +10,14 @@ A half automated setup of Obico / Octoprint / BambuP1Streamer
 
 # Step 1: Run install.sh
 
+On your VM/PI/Whatever you are gonna run this on.
+
+* Login as a NON ROOT user.
+* Verify that WGET is installed. `apt install wget`
+* Download the script. `wget https://raw.githubusercontent.com/mon5termatt/BAMBU-OBICO/main/install.sh`
+* Start the script `./install.sh`
+
+
 ##### Script steps:
 1. **Add Docker Installation Dependencies:** Configures the system to install Docker.
 2. **Install Docker:** Installs Docker and Docker Compose on the system.
