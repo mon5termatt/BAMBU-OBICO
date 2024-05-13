@@ -57,16 +57,19 @@ Install and setup this plugin: `Obico for OctoPrint: Full Remote Access - AI Fai
 3. find the **... from the Plugin Repository** and search for `Obico for OctoPrint`
 4. Click the big **install** button.
 
-# Step 4: Restart the Octoprint Instance if needed
+#### Step 3C: 
 
-# Step 5: Setup the plugins.
+1. Restart the Octoprint Instance if needed
+2. If the obico Quick start comes up, close it. we need to set up a few other things first.
+
+# Step 4: Setup the plugins.
 
 Under plugins we need a few things.
 * Bambu Printer
 * Classic Webcam
 * Obico
 
-#### STEP 5A:
+#### STEP 4A:
 
 #### Under Bambu Printer you need to set up a few options
 
@@ -77,7 +80,7 @@ Under plugins we need a few things.
 
 ![image](https://github.com/mon5termatt/BAMBU-OBICO/assets/43628254/9a1eac86-5e61-40cb-b47a-a39a598cb59a)
 
-#### STEP 5B:
+#### STEP 4B:
 
 #### Under Classic Webcam we need a few more complicated things
 
@@ -108,7 +111,7 @@ Find THIS:
 * Right Click `frame.jpeg` and click `Copy Link Address`
 * Enter this link into the `Snapshot URL`
 
-#### STEP 5C:
+#### STEP 4C:
 
 ### Under Obico
 
